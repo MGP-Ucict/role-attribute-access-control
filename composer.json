@@ -1,0 +1,25 @@
+{
+    "name": "laravel/role-attribute-access-control",
+    "description": "Access Control for Laravel Project",
+    "authors": [
+        {
+            "name": "Maria Penelova",
+            "email": "penelova.maria@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+	},
+	"autoload": {
+        "psr-4": {
+            "Laravel\\AccessControl\\": "src/"
+        }
+    },
+	"extra": {
+        "laravel": {
+            "providers": [
+                "Laravel\\AccessControl\\PackageServiceProvider"
+            ]
+        }
+    }
+}
