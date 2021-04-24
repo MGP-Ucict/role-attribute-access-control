@@ -13,7 +13,7 @@ class CanAccess
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $className = null )
     {
 		// Get the current route.
 		$user = auth()->user();
@@ -28,7 +28,8 @@ class CanAccess
 					$perms = $role->routes()->get();
 					foreach($perms as $perm){
 						if($this->compareRoutes($route, $perm) && $method == $perm->method) {
-							return $next($request);
+							if ((!$perm->own) || ($perm->own && $user->ownsModel($className)){
+								return $next($request);
 						  }
 					}
 				}

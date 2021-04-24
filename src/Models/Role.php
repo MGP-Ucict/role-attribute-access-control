@@ -31,7 +31,7 @@ class Role extends Model
 		return $this->belongsToMany('Laravelroles\Rolespermissions\Models\User');
 	}
 
-	public function hasAccess($permission)
+	public function canAccess($permission)
     {
         if ($this->hasPermission($permission)){
             return true;

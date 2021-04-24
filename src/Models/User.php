@@ -45,7 +45,7 @@ class User extends Authenticatable{
         return false;
     }
 
-    public function ownsClass($className, $id)
+    /*public function ownsClass($className, $id)
 	{
 		$model = $className::find($id);
 		if (isset($model->user_id)){
@@ -54,7 +54,7 @@ class User extends Authenticatable{
 			}
 		}
 		return false;
-	}
+	}*/
 
 	public function ownsModel($model)
 	{
