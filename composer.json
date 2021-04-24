@@ -1,24 +1,30 @@
 {
     "name": "laravel-hrabac/access-control",
-    "description": "Access Control for Laravel Project",
+
+    "description": "Access control for Laravel application",
+
     "authors": [
         {
             "name": "Maria Penelova",
             "email": "penelova.maria@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
+
+    "minimum-stability": "dev",
+
     "require": {
 	},
 	"autoload": {
         "psr-4": {
-            "Laravel\\AccessControl\\": "src/"
+		
+            "LaravelHrabac\\AccessControl\\": "src/"
         }
     },
 	"extra": {
         "laravel": {
             "providers": [
-                "Laravel\\AccessControl\\PackageServiceProvider"
+
+                "LaravelHrabac\\AccessControl\\AccessControlServiceProvider"
             ]
         }
     }
