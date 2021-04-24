@@ -9,7 +9,7 @@ class AccessControlServiceProvider extends ServiceProvider
 {
 
 protected $commands = [
-    'Laravelroles\Rolespermissions\Commands\LaravelrolesCommand'
+    'LaravelHrabac\AccessControl\Commands\LaravelrolesCommand'
 ];
 
     /**
@@ -57,9 +57,9 @@ protected $commands = [
 
 		include __DIR__."/routes.php";
 
-		$this->app->make('Laravelroles\Rolespermissions\Controllers\RoleController');
-		$this->app->make('Laravelroles\Rolespermissions\Controllers\PermissionController');
-		$this->app->make('Laravelroles\Rolespermissions\Controllers\UserController');
+		$this->app->make('LaravelHrabac\AccessControl\Controllers\RoleController');
+		$this->app->make('LaravelHrabac\AccessControl\Controllers\PermissionController');
+		$this->app->make('LaravelHrabac\AccessControl\Controllers\UserController');
 
 
     }
