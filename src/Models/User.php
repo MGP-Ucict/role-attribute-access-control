@@ -34,11 +34,11 @@ class User extends Authenticatable{
 		return $this->belongsToMany('Laravelroles\Rolespermissions\Models\Role', 'roles_users', 'user_id', 'role_id');
 	}
 
-	public function hasAccess($permission)
+	public function canAccess($permission)
     {
         // check if the permission is available in any role
         foreach ($this->roles as $role) {
-            if($role->hasAccess($permission)) {
+            if($role->canAccess($permission)) {
                 return true;
             }
         }
