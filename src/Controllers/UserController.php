@@ -34,7 +34,7 @@ class UserController extends Controller{
 		return redirect()->route('users.index');
 	}
 
-	public function edit($user)
+	public function edit(User $user)
 	{
 		return View::make('rolespermissions/users/edit')->with([
 		    'user' => $user,
@@ -43,7 +43,7 @@ class UserController extends Controller{
         ]);
 	}
 
-	public function update(UserRequest $request, $user)
+	public function update(UserRequest $request, User $user)
 	{
 		$validated = $request->validated();
 		$roles = $validated['roles'];
@@ -64,7 +64,7 @@ class UserController extends Controller{
 		return redirect()->route('users.index');
 	}
 
-	public function destroy($user)
+	public function destroy(User $user)
 	{
 		$user->roles()->detach();
 		$user->delete();

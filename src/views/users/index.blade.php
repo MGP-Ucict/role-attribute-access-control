@@ -34,7 +34,7 @@
 				<td>{{$user->email}}</td>
 				<td>
 				@path('users.edit')
-					<a href="{{route('users.edit', $user->id)}}" class="btn btn-warning"> {{trans('lang::translation.Edit')}}</a>
+					<a href="{{route('users.edit', $user)}}" class="btn btn-warning"> {{trans('lang::translation.Edit')}}</a>
 				@endpath
 				@path('users.destroy')
 					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal-{{$user->id}}">
@@ -52,7 +52,7 @@
 								</button>
 							  </div>
 								<div class="modal-body">
-									<form action="{{ route('users.destroy', $user->id)}}" method="post">
+									<form action="{{ route('users.destroy', $user)}}" method="post">
 										@method('DELETE')
 										<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 										{{trans('lang::translation.Do you really want to delete')}} <b>{{$user->name}}</b>?

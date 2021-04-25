@@ -27,7 +27,7 @@ class RoleController extends Controller{
 	}
 
 
-	public function edit($role)
+	public function edit(Role $role)
 	{
 		return View::make('rolespermissions/roles/edit')->with([
 		    'role' => $role,
@@ -36,7 +36,7 @@ class RoleController extends Controller{
         ]);
 	}
 
-	public function update(RoleRequest $request, $role)
+	public function update(RoleRequest $request, Role $role)
 	{
 		$validated = $request->validated();
 		$permissions = $validated['routes'];
@@ -49,7 +49,7 @@ class RoleController extends Controller{
 
 		return redirect()->route('roles.index');
 	}
-	public function destroy($role)
+	public function destroy(Role $role)
 	{
 		$role->routes()->detach();
 		$role->delete();
