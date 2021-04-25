@@ -48,7 +48,10 @@ class UserController extends Controller{
 		$validated = $request->validated();
 		$roles = $validated['roles'];
 		unset($validated['roles']);
-		if (isset($validated['password'])){
+		if (!$validated['password']){
+			unset($validated['password']);
+		}
+		if (isset($validated['password']) && $validated['password']){
 			$password = $validated['password'];
 			unset($validated['password']);
 			unset($validated['password_confirmation']);
