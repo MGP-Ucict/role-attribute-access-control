@@ -28,6 +28,6 @@ class Permission extends Model
 
 	public function roles()
 	{
-		return $this->belongsToMany('Laravelroles\Rolespermissions\Models\Role');
+		return $this->belongsToMany('LaravelHrabac\AccessControl\Models\Role');
 	}
 }

@@ -63,7 +63,7 @@ class User extends Authenticatable{
 
 	public function roles()
 	{
-		return $this->belongsToMany('Laravelroles\Rolespermissions\Models\Role', 'roles_users', 'user_id', 'role_id');
+		return $this->belongsToMany('LaravelHrabac\AccessControl\Models\Role', 'roles_users', 'user_id', 'role_id');
 	}
 
 	public function canAccess($permission)

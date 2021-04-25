@@ -23,12 +23,12 @@ class Role extends Model
 
 	public function routes()
 	{
-		return $this->belongsToMany('Laravelroles\Rolespermissions\Models\Permission', 'permissions_roles', 'role_id', 'permission_id');
+		return $this->belongsToMany('LaravelHrabac\AccessControl\Models\Permission', 'permissions_roles', 'role_id', 'permission_id');
 	}
 
 	public function users()
 	{
-		return $this->belongsToMany('Laravelroles\Rolespermissions\Models\User');
+		return $this->belongsToMany('LaravelHrabac\AccessControl\Models\User');
 	}
 
 	public function canAccess($permission)
