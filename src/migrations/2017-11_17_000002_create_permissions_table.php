@@ -29,6 +29,8 @@ class PermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('permissions');
+		Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('permissions');
+		Schema::enableForeignKeyConstraints();
     }
 }

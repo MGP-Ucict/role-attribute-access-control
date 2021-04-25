@@ -2,7 +2,7 @@
 namespace LaravelHrabac\AccessControl\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use LaravelHrabac\AccessControl\Models\Role;
 use LaravelHrabac\AccessControl\Requests\UserRequest;

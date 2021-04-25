@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRolesTable extends Migration
+class AddIsActiveToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
+        Schema::table('users', function (Blueprint $table) {
 			$table->boolean('is_active')->nullable();
-            $table->timestamps();
         });
     }
 
@@ -28,8 +25,10 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-		Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('roles');
-		Schema::enableForeignKeyConstraints();
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn([
+                'is_active',
+            ]);
+        });
     }
 }

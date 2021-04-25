@@ -22,13 +22,13 @@ protected $commands = [
        	$this->commands($this->commands);
 		//custom blade directive
 		\Blade::if('path', function($routeName){
-			return auth()->user()->hasAccess($routeName);
+			return auth()->user()->canAccess($routeName);
 		});
 		\Blade::if('owns', function($model){
 			return auth()->user()->ownsModel($model);
 		});
 		\Blade::if('has', function($model, $routeName){
-			return auth()->user()->hasAccess($routeName) || auth()->user()->ownsModel($model);
+			return auth()->user()->canAccess($routeName) || auth()->user()->ownsModel($model);
 		});
 		//load and publish translations
 		$this->loadTranslationsFrom(__DIR__.'/lang', 'lang');
@@ -44,7 +44,7 @@ protected $commands = [
 		__DIR__. '/migrations'=>$this->app->databasePath().'/migrations'], 'migrations');
 		//publish seeds
 		$this->publishes([
-		__DIR__. '/seeds'=>$this->app->databasePath().'/seeds'], 'seeds');
+		__DIR__. '/seeders'=>$this->app->databasePath().'/seeders'], 'seeders');
     }
 
     /**

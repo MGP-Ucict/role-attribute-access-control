@@ -1,6 +1,8 @@
 <?php
-use Illuminate\Support\Facades\DB; 
 
+namespace Database\Seeders;
+
+use Illuminate\Support\Facades\DB; 
 use Illuminate\Database\Seeder;
 
 class RolesUsersSeeder extends Seeder{
