@@ -44,6 +44,11 @@ class Role extends Model
 		return $this->routes()->allRelatedIds()->toArray();
 	}
 
+	public function getOwn()
+	{
+		return $this->routes()->where('own', 1)->pluck('permission_id')->toArray();
+	}
+
     private function hasPermission($permission)
     {
 		$routes = $this->routes;
