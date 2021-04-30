@@ -16,7 +16,7 @@ class Permission extends Model
     protected $fillable = [
        'id', 'name', 'route','method',
     ];
-
+	
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -29,5 +29,16 @@ class Permission extends Model
 	public function roles()
 	{
 		return $this->belongsToMany('LaravelHrabac\AccessControl\Models\Role', 'permissions_roles', 'permission_id', 'role_id')->withPivot('own');
+	}
+	
+	public function getOwn()
+	{
+		$flag = 0;
+		foreach(auth()->user()->roles as $role){
+			if (in_array($this->id, $role->getOwn())){
+				$flag = 1;
+			}
+		}
+		return $flag;
 	}
 }

@@ -52,6 +52,7 @@ class RoleController extends Controller{
 		}
 		$role->update($validated);
 		$role->routes()->sync($permissions);
+		$role->routes()->detach($own);
 		$role->routes()->attach($own, ['own' => 1]);
 		return redirect()->route('roles.index');
 	}

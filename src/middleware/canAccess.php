@@ -22,15 +22,15 @@ class CanAccess
 		$route =  $request->path();
 		$method = $request->method();
 		if ($user->is_active){
-			$roles = $user->roles()->get();
+			$roles = $user->roles;
 			foreach($roles as $role){
 				if($role->is_active){
-					$perms = $role->routes()->get();
+					$perms = $role->routes;
 					foreach($perms as $perm){
 						if($this->compareRoutes($route, $perm) && $method == $perm->method) {
-							//if (($perm->own === null) || ($perm->own && $user->ownsModel($className))){
+					if (!$perm->getOwn() || ($perm->getOwn() && $user->ownsClass($className, $this->getId($route)))){
 								return $next($request);
-							//}
+							}
 						}
 					}
 				}
@@ -57,6 +57,21 @@ class CanAccess
 					break;
 				}
 				$cntr++;
+			}
+		}
+		return $flag;
+	}
+	
+	
+	private function getId($route)
+	{
+		$flag = 0;
+		$routeArray = explode( "/", $route);
+		foreach ($routeArray as $routeIter)
+		{
+			if (is_numeric($routeIter)){
+				$flag = $routeIter;
+				break;
 			}
 		}
 		return $flag;
