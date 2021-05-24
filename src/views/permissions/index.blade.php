@@ -29,7 +29,7 @@
 						<td>{{$permission->route}}</td>
 						<td>
 						@path('permissions.edit')
-							<a href="{{route('permissions.edit', $permission->id)}}" class="btn btn-warning"> {{trans('lang::translation.Edit')}}</a>
+							<a href="{{route('permissions.edit', $permission)}}" class="btn btn-warning"> {{trans('lang::translation.Edit')}}</a>
 						@endpath
 						@path('permissions.destroy')
 							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal-{{$permission->id}}">
@@ -46,7 +46,7 @@
 								</button>
 							  </div>
 							  <div class="modal-body">
-								<form action="{{ route('permissions.destroy', $permission->id)}}" method="post">
+								<form action="{{ route('permissions.destroy', $permission)}}" method="post">
 									@method('DELETE')
 									<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 									{{trans('lang::translation.Do you really want to delete')}} <b>{{$permission->name}}</b>?

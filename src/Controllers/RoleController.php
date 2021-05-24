@@ -20,36 +20,43 @@ class RoleController extends Controller{
 		$validated = $request->validated();
 		$routes = $validated['routes'];
 		unset($validated['routes']);
+		$own = $validated['own'];
+		unset($validated['own']);
 		$role = Role::create($validated);
 		$role->routes()->attach($routes);
-
+		$role->routes()->attach($own, ['own' => 1]);
+		
 		return redirect()->route('roles.index');
 	}
 
 
-	public function edit($role)
+	public function edit(Role $role)
 	{
 		return View::make('rolespermissions/roles/edit')->with([
 		    'role' => $role,
+			'checkedOwn' => $role->getOwn(),
             'permissions' => Permission::all(),
             'checkedPermissions' =>  $role->getCheckedPermissions()
         ]);
 	}
 
-	public function update(RoleRequest $request, $role)
+	public function update(RoleRequest $request, Role $role)
 	{
 		$validated = $request->validated();
 		$permissions = $validated['routes'];
 		unset($validated['routes']);
+		$own = $validated['own'];
+		unset($validated['own']);
 		if (!isset($validated['is_active'])){
 			$validated = array_merge(['is_active' => false], $validated);
 		}
 		$role->update($validated);
 		$role->routes()->sync($permissions);
-
+		$role->routes()->detach($own);
+		$role->routes()->attach($own, ['own' => 1]);
 		return redirect()->route('roles.index');
 	}
-	public function destroy($role)
+	public function destroy(Role $role)
 	{
 		$role->routes()->detach();
 		$role->delete();

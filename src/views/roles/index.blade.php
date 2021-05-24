@@ -32,7 +32,7 @@
                         <td>{{$role->name}}</td>
                         <td>
 						@path('roles.edit')
-							<a href="{{route('roles.edit', $role->id)}}" class="btn btn-warning"> {{trans('lang::translation.Edit')}}</a>
+							<a href="{{route('roles.edit', $role)}}" class="btn btn-warning"> {{trans('lang::translation.Edit')}}</a>
 						@endpath
 						@path('roles.destroy')
 							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal-{{$role->id}}">
@@ -50,7 +50,7 @@
 									</button>
 								  </div>
 								  <div class="modal-body">
-									  <form action="{{ route('roles.destroy', $role->id)}}" method="post">
+									  <form action="{{ route('roles.destroy', $role)}}" method="post">
 										@method('DELETE')
 										<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 										{{trans('lang::translation.Do you really want to delete')}} <b>{{$role->name}}</b>?

@@ -1,7 +1,7 @@
 <?php
-
-Route::prefix('admin')->group(['middleware' => 'canAccess'], function () {
-	Route::resource('permissions', 'Laravelroles\Rolespermissions\Controllers\PermissionController');
-	Route::resource('roles', 'Laravelroles\Rolespermissions\Controllers\RoleController');
-	Route::resource('users', 'Laravelroles\Rolespermissions\Controllers\UserController');
+Route::group(['prefix' => 'admin', 'middleware' => ['web','can.access']], function () {
+	Route::resource('permissions', '\LaravelHrabac\AccessControl\Controllers\PermissionController')->except('show');
+	Route::resource('roles', '\LaravelHrabac\AccessControl\Controllers\RoleController')->except('show');
+	Route::resource('users', '\LaravelHrabac\AccessControl\Controllers\UserController')->except('show');
 });
+

@@ -22,12 +22,12 @@ class PermissionController extends Controller{
 		return redirect()->route('permissions.index');
 	}
 
-	public function edit($permission)
+	public function edit(Permission $permission)
     {
 		return View::make('rolespermissions/permissions/edit')->with(['permission' => $permission]);
 	}
 
-	public function update(RouteRequest $request, $permission)
+	public function update(RouteRequest $request,Permission $permission)
 	{
 		$validated = $request->validated();
 		$permission->update($validated);
@@ -35,7 +35,7 @@ class PermissionController extends Controller{
 		return redirect()->route('permissions.index');
 	}
 
-	public function destroy($permission)
+	public function destroy(Permission $permission)
 	{
 		$permission->delete();
 

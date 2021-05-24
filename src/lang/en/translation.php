@@ -36,4 +36,6 @@ return [
 	'isActive' => 'Active',
 	'ConfirmDelete' => 'Confirm Deletion',
 	'Do you really want to delete' => 'Do you really want to delete',
+	'Own' => 'Own records',
+	'AccessDenied'=>'Access Denied'
 ];

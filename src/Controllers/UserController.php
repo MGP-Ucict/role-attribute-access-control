@@ -2,7 +2,7 @@
 namespace LaravelHrabac\AccessControl\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use LaravelHrabac\AccessControl\Models\Role;
 use LaravelHrabac\AccessControl\Requests\UserRequest;
@@ -34,7 +34,7 @@ class UserController extends Controller{
 		return redirect()->route('users.index');
 	}
 
-	public function edit($user)
+	public function edit(User $user)
 	{
 		return View::make('rolespermissions/users/edit')->with([
 		    'user' => $user,
@@ -43,12 +43,15 @@ class UserController extends Controller{
         ]);
 	}
 
-	public function update(UserRequest $request, $user)
+	public function update(UserRequest $request, User $user)
 	{
 		$validated = $request->validated();
 		$roles = $validated['roles'];
 		unset($validated['roles']);
-		if (isset($validated['password'])){
+		if (!$validated['password']){
+			unset($validated['password']);
+		}
+		if (isset($validated['password']) && $validated['password']){
 			$password = $validated['password'];
 			unset($validated['password']);
 			unset($validated['password_confirmation']);
@@ -64,7 +67,7 @@ class UserController extends Controller{
 		return redirect()->route('users.index');
 	}
 
-	public function destroy($user)
+	public function destroy(User $user)
 	{
 		$user->roles()->detach();
 		$user->delete();

@@ -5,9 +5,19 @@ namespace LaravelHrabac\AccessControl\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable{
+    use HasApiTokens;
+    use HasFactory;
+    use HasProfilePhoto;
     use Notifiable;
+    use TwoFactorAuthenticatable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -15,23 +25,45 @@ class User extends Authenticatable{
      * @var array
      */
     protected $fillable = [
-       'id', 'username', 'name', 'email', 'password','is_active',
+       'id', 'name', 'email', 'password','is_active',
     ];
 
+   
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'profile_photo_url',
     ];
 	protected $table = 'users';
 	public $timestamps = true;
 
 	public function roles()
 	{
-		return $this->belongsToMany('Laravelroles\Rolespermissions\Models\Role', 'roles_users', 'user_id', 'role_id');
+		return $this->belongsToMany('LaravelHrabac\AccessControl\Models\Role', 'roles_users', 'user_id', 'role_id');
 	}
 
 	public function canAccess($permission)
@@ -45,17 +77,19 @@ class User extends Authenticatable{
         return false;
     }
 
-    public function ownsClass($className, $id)
+	public function ownsClass($className, $id)
 	{
+		$flag = false;
+		$intId = (int)$id;
 		$model = $className::find($id);
-		if (isset($model->user_id)){
-			if ($model->user_id == $this->id){
-				return true;
+		if (isset($model) && isset($model->user_id)){
+			if ($intId > 0 && $model->user_id === $intId && auth()->user()->id === $intId){
+				$flag = true;
 			}
 		}
-		return false;
+		return $flag;
 	}
-
+	
 	public function ownsModel($model)
 	{
 		if (isset($model->user_id)){

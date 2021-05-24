@@ -23,15 +23,15 @@ class Role extends Model
 
 	public function routes()
 	{
-		return $this->belongsToMany('Laravelroles\Rolespermissions\Models\Permission', 'permissions_roles', 'role_id', 'permission_id');
+		return $this->belongsToMany('LaravelHrabac\AccessControl\Models\Permission', 'permissions_roles', 'role_id', 'permission_id');
 	}
 
 	public function users()
 	{
-		return $this->belongsToMany('Laravelroles\Rolespermissions\Models\User');
+		return $this->belongsToMany('LaravelHrabac\AccessControl\Models\User');
 	}
 
-	public function hasAccess($permission)
+	public function canAccess($permission)
     {
         if ($this->hasPermission($permission)){
             return true;
@@ -42,6 +42,11 @@ class Role extends Model
 	public function getCheckedPermissions()
 	{
 		return $this->routes()->allRelatedIds()->toArray();
+	}
+
+	public function getOwn()
+	{
+		return $this->routes()->where('own', 1)->pluck('permission_id')->toArray();
 	}
 
     private function hasPermission($permission)

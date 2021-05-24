@@ -56,7 +56,13 @@
 									{{$permission->name}}
 								</span>
 							</label>
-						</div>							
+						</div>
+						<div class="col-sm-3"> 
+							<input type="checkbox" name="own[]" class="form-check-input" value="{{$permission->id}}"  {{(in_array($permission->id, $checkedOwn))? 'checked="checked"' : ''  }}/>
+							<label class="form-check-label">
+									{{trans('lang::translation.Own')}}
+							</label>
+						</div>					
 					</div>
 					@endforeach	
 					<div class="form-group">
