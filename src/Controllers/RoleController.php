@@ -45,15 +45,18 @@ class RoleController extends Controller{
 		$validated = $request->validated();
 		$permissions = $validated['routes'];
 		unset($validated['routes']);
-		$own = $validated['own'];
-		unset($validated['own']);
+		if (isset($validated['own'])) {
+			$own = $validated['own'];
+			unset($validated['own']);
+			$role->routes()->detach($own);
+			$role->routes()->attach($own, ['own' => 1]);
+		}
 		if (!isset($validated['is_active'])){
 			$validated = array_merge(['is_active' => false], $validated);
 		}
 		$role->update($validated);
 		$role->routes()->sync($permissions);
-		$role->routes()->detach($own);
-		$role->routes()->attach($own, ['own' => 1]);
+		
 		return redirect()->route('roles.index');
 	}
 	public function destroy(Role $role)
