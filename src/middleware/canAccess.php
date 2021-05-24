@@ -28,7 +28,7 @@ class CanAccess
 					$perms = $role->routes;
 					foreach($perms as $perm){
 						if($this->compareRoutes($route, $perm) && $method == $perm->method) {
-					if (!$perm->getOwn() || ($perm->getOwn() && $user->ownsClass($className, $this->getId($route)))){
+							if (!$perm->getOwn() || ($perm->getOwn() && $user->ownsClass($className, $this->getId($route)))){
 								return $next($request);
 							}
 						}
