@@ -27,7 +27,6 @@ class RoleController extends Controller{
 		}
 		$role = Role::create($validated);
 		$role->routes()->attach($routes);
-		$role->routes()->attach($own, ['own' => 1]);
 		
 		return redirect()->route('roles.index');
 	}
