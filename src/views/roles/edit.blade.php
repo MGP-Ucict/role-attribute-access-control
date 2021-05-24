@@ -48,16 +48,16 @@
 						</label>
 					</div>	
 					@foreach($permissions as $permission)
-					<div class="form-check row offset-sm-1">
-						<div class="col-sm-4"> 
+					<div class="form-check row col-sm-10 offset-sm-1">
+						<div class="col-sm-6" style="display: inline-block;"> 
 							<input type="checkbox" name="routes[]" class="form-check-input" value="{{$permission->id}}" {{ (in_array($permission->id, $checkedPermissions)) ? 'checked="checked"' : '' }}/>
 							<label class="form-check-label">
-								<span class="h4">
+								<span class="h6">
 									{{$permission->name}}
 								</span>
 							</label>
 						</div>
-						<div class="col-sm-3"> 
+						<div class="col-sm-4" style="display: inline-block;"> 
 							<input type="checkbox" name="own[]" class="form-check-input" value="{{$permission->id}}"  {{(in_array($permission->id, $checkedOwn))? 'checked="checked"' : ''  }}/>
 							<label class="form-check-label">
 									{{trans('lang::translation.Own')}}
