@@ -24,11 +24,11 @@ protected $commands = [
 		\Blade::if('path', function($routeName){
 			return auth()->user()->canAccess($routeName);
 		});
-		\Blade::if('owns', function($model){
-			return auth()->user()->ownsModel($model);
+		\Blade::if('owns', function($routeName, $model){
+			return auth()->user()->isOwned($routeName) && auth()->user()->ownModel($model);
 		});
-		\Blade::if('has', function($model, $routeName){
-			return auth()->user()->canAccess($routeName) || auth()->user()->ownsModel($model);
+		\Blade::if('has', function($routeName){
+			return auth()->user()->canAccess($routeName) || auth()->user()->isOwned($routeName);
 		});
 		//load and publish translations
 		$this->loadTranslationsFrom(__DIR__.'/lang', 'lang');
