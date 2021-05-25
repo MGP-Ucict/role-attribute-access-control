@@ -53,12 +53,23 @@ class Role extends Model
     {
 		$routes = $this->routes;
 		foreach($routes as $route){
-			if ($route->name == $permission){
+			if ($route->name == $permission && !in_array($route->id, $this->getOwn())){
 				return true;
 			}
 		}
         return  false;
     }
-
-
+	
+	public function isOwned($permission)
+	{
+		$routes = $this->routes;
+		foreach($routes as $route){
+			if ($route->name == $permission){
+				if (in_array($route->id, $this->getOwn())) {
+					return true;
+				}
+			}
+		}
+        return  false;
+	}
 }

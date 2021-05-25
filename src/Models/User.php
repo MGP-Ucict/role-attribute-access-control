@@ -90,10 +90,21 @@ class User extends Authenticatable{
 		return $flag;
 	}
 	
-	public function ownsModel($model)
+	public function isOwned($permission)
+	{
+		$roles = $this->roles;
+		foreach($roles as $role){
+			if ($role->isOwned($permission)){
+				return true;
+			}
+		}
+        return  false;
+	}
+	
+	public function ownModel($model) 
 	{
 		if (isset($model->user_id)){
-			if ($model->user_id == $this->id){
+			if ($model->user_id === $this->id){
 				return true;
 			}
 		}
