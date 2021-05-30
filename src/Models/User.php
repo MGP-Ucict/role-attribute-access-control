@@ -81,10 +81,12 @@ class User extends Authenticatable{
 	{
 		$flag = false;
 		$intId = (int)$id;
-		$model = $className::find($id);
-		if (isset($model) && isset($model->user_id)){
-			if ($intId > 0 && $model->user_id === $intId && auth()->user()->id === $intId){
-				$flag = true;
+		if ($className) {
+			$model = $className::find($id);
+			if (isset($model) && isset($model->user_id)){
+				if ($intId > 0 && $model->user_id === $intId && auth()->user()->id === $intId){
+					$flag = true;
+				}
 			}
 		}
 		return $flag;
