@@ -47,17 +47,22 @@ class RoleController extends Controller{
 		$validated = $request->validated();
 		$permissions = $validated['routes'];
 		unset($validated['routes']);
-		if (isset($validated['own'])) {
-			$own = $validated['own'];
-			unset($validated['own']);
-			$role->routes()->detach($own);
-			$role->routes()->attach($own, ['own' => 1]);
-		}
+		
 		if (!isset($validated['is_active'])){
 			$validated = array_merge(['is_active' => false], $validated);
 		}
 		$role->update($validated);
 		$role->routes()->sync($permissions);
+		foreach($role->routes()->where(['own'=> 1])->get() as $rolePivot) {
+			$rolePivot->pivot->own = NULL;
+			$rolePivot->pivot->save();
+		}
+		
+		if (isset($validated['own'])) {
+			$own = $validated['own'];
+			unset($validated['own']);
+			$role->routes()->attach($own, ['own' => 1]);
+		}
 		
 		return redirect()->route('roles.index');
 	}
