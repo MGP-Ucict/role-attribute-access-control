@@ -25,7 +25,7 @@ protected $commands = [
 			return auth()->user()->canAccess($routeName);
 		});
 		\Blade::if('owns', function($routeName, $model){
-			return auth()->user()->isOwned($routeName) && auth()->user()->ownModel($model);
+			return auth()->user()->canAccess($routeName) || (auth()->user()->isOwned($routeName) && auth()->user()->ownModel($model));
 		});
 		\Blade::if('has', function($routeName){
 			return auth()->user()->canAccess($routeName) || auth()->user()->isOwned($routeName);
