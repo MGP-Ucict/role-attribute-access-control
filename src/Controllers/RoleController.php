@@ -20,12 +20,13 @@ class RoleController extends Controller{
 		$validated = $request->validated();
 		$routes = $validated['routes'];
 		unset($validated['routes']);
+		$role = Role::create($validated);
 		if (isset($validated['own'])) {
 			$own = $validated['own'];
 			unset($validated['own']);
 			$role->routes()->attach($own, ['own' => 1]);
 		}
-		$role = Role::create($validated);
+		
 		$role->routes()->attach($routes);
 		
 		return redirect()->route('roles.index');
