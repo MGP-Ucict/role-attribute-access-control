@@ -30,9 +30,10 @@ composer dump-autoload
 
 php artisan laravelroles:seeder
 
-Class User from main laravel project extends LaravelHrabac\AccessControl\Models\User
+7.Class User from main laravel project extends LaravelHrabac\AccessControl\Models\User
 
-User.php:
+In class User.php:
+
 
 use LaravelHrabac\AccessControl\Models\User as BaseUser;
 
@@ -43,6 +44,7 @@ class User extends BaseUser
 
 
 }
-Set localization in config/app.php - bg or en
+8.Set localization in config/app.php - bg or en
 
-Log in main program with example user test@test.bg and password test
+
+9.Log in main program with example user test@test.bg and password test
