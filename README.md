@@ -44,6 +44,7 @@ class User extends BaseUser
 
 
 }
+
 8.Set localization in config/app.php - bg or en
 
 
