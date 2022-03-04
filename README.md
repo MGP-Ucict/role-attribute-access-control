@@ -7,9 +7,12 @@ composer require laravel-hrabac/access-control
 
 2.Register package middleware in app/Http/Kernel.php
 protected $routeMiddleware = [
+
 					//...
 					'can.access' => \LaravelHrabac\AccessControl\Middleware\CanAccess::class,
+					
 				];
+				
 3. Publish the interfaces of the package	
 	
 php artisan vendor:publish --provider="LaravelHrabac\AccessControl\AccessControlServiceProvider"
@@ -27,7 +30,7 @@ composer dump-autoload
 
 php artisan laravelroles:seeder
 
-Class User from main laravel project extends LaravelHrabac\AccessControl\\Models\User
+Class User from main laravel project extends LaravelHrabac\AccessControl\Models\User
 
 User.php:
 
