@@ -13,12 +13,12 @@ protected $routeMiddleware = [
 					
 				];
 				
-3. Publish the interfaces of the package	
+3.Publish the interfaces of the package	
 	
 php artisan vendor:publish --provider="LaravelHrabac\AccessControl\AccessControlServiceProvider"
 
 
-4. In the terminal:
+4.In the terminal:
 
 php artisan migrate
 
